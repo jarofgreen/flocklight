@@ -1,0 +1,12 @@
+
+{extends file="page.htm"} 
+
+{block name="content"}
+
+	<ul>
+		{while $user=$searchUsers->nextResult()}
+			<li><a href="/user.php?id={$user->getUserName()|escape:'url'}">{$user->getUserName()|escape}</a></li>
+		{/while}
+	</ul>
+
+{/block}

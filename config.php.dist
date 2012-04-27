@@ -1,0 +1,11 @@
+<?php
+
+define('DB_DSN','mysql:host=localhost;dbname=eventtwitterinfo');
+define('DB_USERNAME','eventtwitterinfo');
+define('DB_PASSWORD','password');
+
+
+$searchTerms = array('#chscot');
+
+
+

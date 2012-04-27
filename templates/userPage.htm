@@ -1,0 +1,16 @@
+
+{extends file="page.htm"} 
+
+{block name="topContent"}
+
+	<h1>{$user->getUserName()|escape}</h1>
+
+	<ul class="tabs">
+		<li><a href="/user.php?id={$user->getUserName()|escape:'url'}">Details</a></li>
+		<li><a href="/userFriends.php?id={$user->getUserName()|escape:'url'}">Friends</a></li>
+		<li><a href="/userFollows.php?id={$user->getUserName()|escape:'url'}">Follows</a></li>
+		<li><a href="/userFollowedBy.php?id={$user->getUserName()|escape:'url'}">Followed By</a></li>
+	</ul>
+	
+	
+{/block}
