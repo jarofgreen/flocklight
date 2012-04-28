@@ -7,12 +7,19 @@
 
 	<h2>word use</h2>
 
-	<ul>
-		{while $word=$wordSearch->nextResult()}
-			<li>
-				<a href="/word.php?id={$word['word']|escape:'url'}">{$word['word']|escape} ({$word['num_used']})</a>
-			</li>
-		{/while}
-	</ul>
+	<form method="post">
+		<input type="text" name="search">
+		<input type="submit" value="Search">
+	</form>
+	
+	{if $wordSearch}
+		<ul>
+			{while $word=$wordSearch->nextResult()}
+				<li>
+					<a href="/word.php?id={$word['word']|escape:'url'}">{$word['word']|escape} ({$word['num_used']})</a>
+				</li>
+			{/while}
+		</ul>
+	{/if}
 	
 {/block}
