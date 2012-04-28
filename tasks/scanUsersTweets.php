@@ -14,19 +14,12 @@ while(($user = $search->nextResult()) && $continue) {
 	
 	print $user->getUserName()."\n";
 
-	$url = "http://api.twitter.com/1/statuses/user_timeline.json?count=100&user_id=".$user->getId();
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-	curl_setopt($ch, CURLOPT_USERAGENT, 'chs');
-	$rawData = curl_exec($ch);
-	curl_close($ch);
-
+	$conn = $user->getTwitterConnection();
+	$url = "statuses/user_timeline.json?count=100&user_id=".$user->getId();
 	print date('r')." Searching ".$url."\n";
+	$data = $conn->get($url);
 
-	$data = json_decode($rawData);
-	//print $rawData;
+	//var_dump($data);
 
 	if (property_exists($data, 'error') && $data->error) {
 		print date('r')." Error: ".$data->error."\n";

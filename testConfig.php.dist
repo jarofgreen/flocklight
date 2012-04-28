@@ -13,6 +13,9 @@ define('TWITTER_APP_SECRET',null);
 define('HTTP_HOST','localhost');
 
 
+define('TWITTER_ACCESS_TOKEN',null);
+define('TWITTER_ACCESS_TOKEN_SECRET',null);
+
 $searchTerms = array('#chscot');
 
 

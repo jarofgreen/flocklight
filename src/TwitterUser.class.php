@@ -12,6 +12,9 @@ class TwitterUser {
 	private $user_name;
 	private $profile_image_url;
 	private $attending;
+	private $oauth_token;
+	private $oauth_secret;
+	
 
 	public static function find($userID) {
 		$db = getDB();
@@ -57,6 +60,8 @@ class TwitterUser {
 		if (isset($data['user_name'])) $this->user_name = $data['user_name'];
 		if (isset($data['profile_image_url'])) $this->profile_image_url = $data['profile_image_url'];
 		if (isset($data['attending'])) $this->attending = $data['attending'];
+		if (isset($data['oauth_secret'])) $this->oauth_secret = $data['oauth_secret'];
+		if (isset($data['oauth_token'])) $this->oauth_token = $data['oauth_token'];
 	}
 	
 	
@@ -117,7 +122,14 @@ class TwitterUser {
 		$s->execute($data);
 	}
 	
-	
+	/** @return TwitterOAuth **/
+	public function getTwitterConnection() {
+		if ($this->oauth_token) {
+			return new TwitterOAuth(TWITTER_APP_KEY, TWITTER_APP_SECRET, $this->oauth_token, $this->oauth_secret);
+		} else {
+			return new TwitterOAuth(TWITTER_APP_KEY, TWITTER_APP_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET);
+		}
+	}	
 	
 }
 
