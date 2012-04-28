@@ -45,8 +45,8 @@ while ($next_cursor) {
 		}
 	}
 
-	$next_cursor = $data->next_cursor;
-	print "Next Cursor: ".$data->next_cursor."\n";
+	$next_cursor = $data->next_cursor_str;
+	print "Next Cursor: ".$data->next_cursor_str."\n";
 	sleep(1);
 }
 print "\n\n";
