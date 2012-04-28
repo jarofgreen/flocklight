@@ -13,6 +13,7 @@ $tpl = getSmarty();
 
 $search = new TwitterUserSearchByWordUse($word);
 $tpl->assign('searchUsers',$search);
+$tpl->assign('word',$word);
 
 $tpl->display('word.htm');
 
