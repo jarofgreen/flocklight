@@ -32,7 +32,9 @@ while(($user = $userSearch->nextResult()) && $continue) {
 	$tweetSearch = new TweetSearch();
 	$tweetSearch->by($user);
 	while($tweet = $tweetSearch->nextResult()) {
-		$bits = array_count_values(str_word_count(strtolower($tweet->getTweet()), 1));
+		$text =  preg_replace("/(http:\/\/[^\s]+)/", " ", $tweet->getTweet());
+		$text =  preg_replace("/(https:\/\/[^\s]+)/", " ", $text);
+		$bits = array_count_values(str_word_count(strtolower($text), 1));
 		foreach($bits as $word=>$count) {
 			if (!in_array($word, $excludeWords)) {
 				if (isset($data[$word])) {
