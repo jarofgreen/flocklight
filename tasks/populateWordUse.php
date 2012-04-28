@@ -24,7 +24,7 @@ while(($user = $userSearch->nextResult()) && $continue) {
 	$tweetSearch = new TweetSearch();
 	$tweetSearch->by($user);
 	while($tweet = $tweetSearch->nextResult()) {
-		$bits = array_count_values(str_word_count($tweet->getTweet(), 1));
+		$bits = array_count_values(str_word_count(strtolower($tweet->getTweet()), 1));
 		foreach($bits as $word=>$count) {
 			if (isset($data[$word])) {
 				$data[$word] += $count;
