@@ -3,7 +3,7 @@
 
 {block name="topContent"}
 
-	<h1>{$user->getUserName()|escape}</h1>
+	<h1><img src="{$user->getProfileImageURL()}" class="twitterAvatar">{$user->getUserName()|escape}</h1>
 
 	<ul class="tabs">
 		<li><a href="/user.php?id={$user->getUserName()|escape:'url'}">Details</a></li>

@@ -1,23 +1,30 @@
 <html>
 	<head>
 		<title>Flocklight</title>
+		<link rel="stylesheet" type="text/css" href="main.css" />
 	</head>
 	<body>
-		<div id="header">
-			{if $userID}
-				Welcome {$userScreenName|escape}
-				<a href="/user.php?id={$userScreenName|escape:'url'}">About you</a>
-				<a href="/logout.php">logout</a> 
-			{else}
-				<a href="/login.php">login</a>
-			{/if}
-		</div>
-		<div id="body">
-			{block name="topContent"}{/block}
-			{block name="content"}{/block}
-		</div>
-		<div id="footer">
-			Flocklight is <a href="https://github.com/jarofgreen/flocklight">Open Source</a>
+		<div id="pageWrapper">
+			<div id="header">
+				<h1><a href="/">Flocklight</a></h1>
+				<div id="user">
+					{if $userID}
+						Welcome {$userScreenName|escape}
+						<a href="/user.php?id={$userScreenName|escape:'url'}">About you</a>
+						<a href="/logout.php">logout</a>
+						<img src="{$userProfileImageURL}" class="twitterAvatar">
+					{else}
+						<a href="/login.php">login</a>
+					{/if}
+				</div>
+			</div>
+			<div id="body">
+				{block name="topContent"}{/block}
+				{block name="content"}{/block}
+			</div>
+			<div id="footer">
+				Flocklight is <a href="https://github.com/jarofgreen/flocklight">Open Source</a>
+			</div>
 		</div>
 	</body>
 </html>

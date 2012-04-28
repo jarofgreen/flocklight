@@ -5,7 +5,10 @@
 
 	<ul>
 		{while $user=$searchUsers->nextResult()}
-			<li><a href="/user.php?id={$user->getUserName()|escape:'url'}">{$user->getUserName()|escape}</a></li>
+			<li>
+				<img src="{$user->getProfileImageURL()}" class="twitterAvatar">
+				<a href="/user.php?id={$user->getUserName()|escape:'url'}">{$user->getUserName()|escape}</a>
+			</li>
 		{/while}
 	</ul>
 

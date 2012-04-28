@@ -1,0 +1,46 @@
+html, body {
+	background: #ccc;
+	margin: 0 auto;
+	
+}
+#pageWrapper {
+	width: 99%;
+	max-width: 1100px;
+}
+#header {
+	background: #5D8AA8;
+	margin: 0;
+	padding: 10px;
+}
+#header #user {
+	text-align: right;
+}
+#body {
+	background: white;
+	margin: 0;
+	padding: 10px;
+}
+#body ul.tabs {
+	border-bottom: 1px solid black;
+	padding: 5px;
+}
+#body ul.tabs li {
+	display: inline;
+	border: 1px solid black;
+	padding: 5px 20px;
+}
+img.twitterAvatar {
+	max-height: 100px;
+	max-width: 100px;
+}
+#footer {
+	background: #F0F8FF;
+	margin: 0;
+	padding: 10px;
+	font-size: 10pt;
+	text-align: center;
+	color: #999;
+}
+#footer a {
+	color: #999;	
+}
