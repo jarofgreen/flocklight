@@ -58,6 +58,11 @@ class Tweet {
 		if (isset($data['account_id'])) $this->account_id = $data['account_id'];
 	}
 	
+	public function getTweet() { return $this->text; }
+	public function getId() { return $this->id; }
+	public function getAccountId() { return $this->account_id; }
+	
+	
 }
 
 

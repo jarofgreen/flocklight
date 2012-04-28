@@ -15,6 +15,10 @@ class TwitterUserSearch extends  BaseSearch {
 	protected $follows;
 	/** @var TwitterUser **/
 	protected $followedBy;
+	/** @var TwitterUser **/
+	protected $tweetsFrom;
+	/** @var TwitterUser **/
+	protected $tweetsTo;
 
 
 	public function follows(TwitterUser $user) {
@@ -25,6 +29,15 @@ class TwitterUserSearch extends  BaseSearch {
 	public function followedBy(TwitterUser $user) {
 		$this->followedBy = $user;
 	}
+	
+	public function tweetsFrom(TwitterUser $user) {
+		$this->tweetsFrom = $user;
+	}
+	
+	public function tweetsTo(TwitterUser $user) {
+		$this->tweetsTo = $user;
+	}
+	
 	
 
 	protected function execute() {
@@ -42,9 +55,18 @@ class TwitterUserSearch extends  BaseSearch {
 			$where[] = " f2.follows_account_id = ".  intval($this->followedBy->getId());
 		}
 		
+		if ($this->tweetsFrom) {
+			$joins[] = " JOIN tweet_conversation AS t1 ON t1.to_account_id = twitter_account.id ";
+			$where[] = " t1.from_account_id = ".  intval($this->tweetsFrom->getId());
+		}		
+		if ($this->tweetsTo) {
+			$joins[] = " JOIN tweet_conversation AS t2 ON t2.from_account_id = twitter_account.id ";
+			$where[] = " t2.to_account_id = ".  intval($this->tweetsTo->getId());
+		}
+		
 		
 		$sql = "SELECT twitter_account.* ".
-			"FROM twitter_account ".implode(" ", $joins).(count($where) > 0 ? " WHERE ".implode(" AND ", $where) : "")."   ";
+			"FROM twitter_account ".implode(" ", $joins).(count($where) > 0 ? " WHERE ".implode(" AND ", $where) : "")."  GROUP BY twitter_account.id ";
 		//die($sql);
 		$stat = $db->prepare($sql);
 		$stat->execute();

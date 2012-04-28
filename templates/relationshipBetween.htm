@@ -1,0 +1,26 @@
+
+{extends file="page.htm"} 
+
+{block name="content"}
+
+	<h2>
+		Between 
+		<a href="/user.php?id={$user1->getUserName()|escape:'url'}">{$user1->getUserName()|escape}</a> 
+		and 
+		<a href="/user.php?id={$user2->getUserName()|escape:'url'}">{$user2->getUserName()|escape}</a> 
+	</h2>
+
+	<ul>
+		{while $tweet = $tweetSearch->nextResult()}
+			<li>
+				<div class="body">{$tweet->getTweet()|escape}</div>
+				<div class="username">
+					{if $tweet->getAccountId() == $user1->getId()}{$user1->getUserName()|escape}
+					{else if $tweet->getAccountId() == $user2->getId()}{$user2->getUserName()|escape}
+					{/if}
+				</div>
+				<div class="at"></div>
+			</li>
+		{/while}
+	</ul>
+{/block}
