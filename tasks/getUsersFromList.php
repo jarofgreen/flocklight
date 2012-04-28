@@ -9,8 +9,7 @@ require dirname(__FILE__).'/../src/global.php';
 $user_name = $argv[1];
 $list = $argv[2];
 
-$opts = getopt('a');
-$markAsAttending = isset($opts['a']) && $opts['a'];
+$markAsAttending = isset($argv[2]) && $argv[2]='attend';
 
 print "Username ".$user_name." list ".$list."\n";
 print "Mark as attending: ".($markAsAttending?'y':'n')."\n";
@@ -41,7 +40,7 @@ while ($next_cursor) {
 			if (!$userData->protected) {
 				print ".";
 				$user = TwitterUser::findOrCreate($userData->id_str, $userData->screen_name, $userData->profile_image_url_https);
-				$user->setAttending(true);
+				if ($markAsAttending) $user->setAttending(true);
 			}
 		}
 	}
