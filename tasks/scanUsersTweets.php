@@ -34,12 +34,13 @@ while(($user = $search->nextResult()) && $continue) {
 	} else {
 		//var_dump($data);
 		foreach($data as $tweetData) {
-			var_dump($tweetData);
-			
+			//var_dump($tweetData);
+			print $tweetData->id_str." ";
 			$tweet = Tweet::findOrCreateFromData($tweetData->id_str, $tweetData->text,$tweetData->created_at,$tweetData->user->id_str);
 		}
 	}
-
+	
+	print "\n\n";
 	sleep(1);
 		
 }
