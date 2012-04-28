@@ -1,6 +1,6 @@
 <?php
 
-define('DB_DSN','mysql:host=localhost;dbname=flocklight');
+define('DB_DSN','mysql:host=localhost;dbname=testflocklight');
 define('DB_USERNAME','flocklight');
 define('DB_PASSWORD','password');
 
