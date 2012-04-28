@@ -40,6 +40,7 @@ function getSmarty() {
 	$s = new Smarty();
 	$s->template_dir = dirname(__FILE__) . '/../templates/';
 	$s->compile_dir = dirname(__FILE__) . '/../smarty_c/';
+	$s->assign('eventName',EVENT_NAME);
 	$s->assign('userID',isset($_SESSION['userID']) ? $_SESSION['userID'] : null);
 	$s->assign('userScreenName',isset($_SESSION['userScreenName']) ? $_SESSION['userScreenName'] : null);
 	$s->assign('userProfileImageURL',isset($_SESSION['userProfileImageURL']) ? $_SESSION['userProfileImageURL'] : null);	

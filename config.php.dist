@@ -4,6 +4,8 @@ define('DB_DSN','mysql:host=localhost;dbname=flocklight');
 define('DB_USERNAME','flocklight');
 define('DB_PASSWORD','password');
 
+define('EVENT_NAME','Culture Hack Scotland 2012');
+
 /** This twitter app should be read-only **/
 define('TWITTER_APP_KEY',null);
 define('TWITTER_APP_SECRET',null);
