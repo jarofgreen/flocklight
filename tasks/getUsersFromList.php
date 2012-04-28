@@ -30,7 +30,9 @@ if (property_exists($data, 'error') && $data->error) {
 } else {
 	foreach($data->users as $userData) {
 		//var_dump($tweetData);
-		TwitterUser::findOrCreate($userData->id_str, $userData->screen_name, $userData->profile_image_url_https);
+		if (!$userData->protected) {
+			TwitterUser::findOrCreate($userData->id_str, $userData->screen_name, $userData->profile_image_url_https);
+		}
 	}
 }
 
