@@ -1,7 +1,7 @@
 html, body {
 	background: #ccc;
 	margin: 0 auto;
-	
+	text-size: 12pt;
 }
 #pageWrapper {
 	width: 99%;
@@ -32,6 +32,11 @@ html, body {
 img.twitterAvatar {
 	max-height: 100px;
 	max-width: 100px;
+}
+a.relationship {
+	text-size: 10pt;
+	font-style: italic;
+	color: #555;
 }
 #footer {
 	background: #F0F8FF;

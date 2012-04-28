@@ -10,7 +10,7 @@
 			<li>
 				<img src="{$userInList->getProfileImageURL()}" class="twitterAvatar">
 				<a href="/user.php?id={$userInList->getUserName()|escape:'url'}">{$userInList->getUserName()|escape}</a>
-				<a href="/relationshipBetween.php?id1={$userInList->getUserName()|escape:'url'}&id2={$user->getUserName()|escape:'url'}">relationship</a>
+				<a class="relationship" href="/relationshipBetween.php?id1={$userInList->getUserName()|escape:'url'}&id2={$user->getUserName()|escape:'url'}">relationship</a>
 			</li>
 		{/while}
 	</ul>
