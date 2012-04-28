@@ -1,0 +1,17 @@
+
+{extends file="userPage.htm"} 
+
+{block name="content"}
+
+	<h2>who tweeted them</h2>
+
+	<ul>
+		{while $user=$searchUsers->nextResult()}
+			<li>
+				<img src="{$user->getProfileImageURL()}" class="twitterAvatar">
+				<a href="/user.php?id={$user->getUserName()|escape:'url'}">{$user->getUserName()|escape}</a>
+			</li>
+		{/while}
+	</ul>
+	
+{/block}
