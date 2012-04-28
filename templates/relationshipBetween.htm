@@ -10,6 +10,15 @@
 		<a href="/user.php?id={$user2->getUserName()|escape:'url'}">{$user2->getUserName()|escape}</a> 
 	</h2>
 
+	{if $user1->isFollowing($user2)}
+		<p>{$user1->getUserName()|escape} follows {$user2->getUserName()|escape}</p>
+	{/if}
+
+	{if $user2->isFollowing($user1)}
+		<p>{$user2->getUserName()|escape} follows {$user1->getUserName()|escape}</p>
+	{/if}
+	
+
 	<ul>
 		{while $tweet = $tweetSearch->nextResult()}
 			<li>

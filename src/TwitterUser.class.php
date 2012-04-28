@@ -85,6 +85,13 @@ class TwitterUser {
 				'created_at'=>date("Y-m-d H:i:s")
 			));	
 	}
+	
+	public function isFollowing(TwitterUser $user) {
+		$db = getDB();
+		$stat = $db->prepare("SELECT follows.* FROM follows WHERE account_id=:i AND follows_account_id=:f");
+		$stat->execute(array('i'=>$this->id, 'f'=>$user->getId()));
+		return ($stat->rowCount() > 0);
+	}
 
 	public function addTokens($token,$secret) {
 		$db = getDB();
