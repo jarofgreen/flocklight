@@ -12,6 +12,10 @@ html, body {
 	margin: 0;
 	padding: 10px;
 }
+#header ul.menu li {
+	display: inline;
+	list-style-type: none;
+}
 #header #user {
 	text-align: right;
 }
