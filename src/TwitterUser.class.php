@@ -11,7 +11,8 @@ class TwitterUser {
 	private $id;
 	private $user_name;
 	private $profile_image_url;
-	
+	private $attending;
+
 	public static function find($userID) {
 		$db = getDB();
 		$s = $db->prepare("SELECT twitter_account.* FROM twitter_account WHERE id=:id"); 
@@ -55,12 +56,14 @@ class TwitterUser {
 		if (isset($data['id'])) $this->id = $data['id'];
 		if (isset($data['user_name'])) $this->user_name = $data['user_name'];
 		if (isset($data['profile_image_url'])) $this->profile_image_url = $data['profile_image_url'];
+		if (isset($data['attending'])) $this->attending = $data['attending'];
 	}
 	
 	
 	public function getId() { return $this->id; }
 	public function getUserName() { return $this->user_name; }
 	public function getProfileImageURL() { return $this->profile_image_url; }
+	public function getAttending() { return $this->attending; }
 	
 	public function update($userName, $profileImageURL) {
 		if (strlen($profileImageURL) > 250) $profileImageURL = "https://twimg0-a.akamaihd.net/sticky/default_profile_images/default_profile_4_normal.png";
@@ -103,6 +106,18 @@ class TwitterUser {
 			);
 		$s->execute($data);
 	}
+
+	public function setAttending($value) {
+		$db = getDB();
+		$s = $db->prepare("UPDATE twitter_account  SET attending=:a WHERE id=:id");
+		$data = array(
+				'id'=>$this->id,
+				'a'=>($value?1:0)
+			);
+		$s->execute($data);
+	}
+	
+	
 	
 }
 

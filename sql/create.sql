@@ -6,6 +6,7 @@ CREATE TABLE twitter_account (
   oauth_secret VARCHAR(250),
   write_oauth_token VARCHAR(250),
   write_oauth_secret VARCHAR(250),
+  attending TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 

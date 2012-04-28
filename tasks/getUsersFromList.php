@@ -9,30 +9,46 @@ require dirname(__FILE__).'/../src/global.php';
 $user_name = $argv[1];
 $list = $argv[2];
 
+$opts = getopt('a');
+$markAsAttending = isset($opts['a']) && $opts['a'];
+
 print "Username ".$user_name." list ".$list."\n";
+print "Mark as attending: ".($markAsAttending?'y':'n')."\n";
 
-$url = "http://api.twitter.com/1/lists/members.json?owner_screen_name=".$user_name."&slug=".$list;
+$next_cursor = -1; 
+while ($next_cursor) {
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_USERAGENT, 'chs');
-$rawData = curl_exec($ch);
-curl_close($ch);
+	$url = "http://api.twitter.com/1/lists/members.json?".
+			"owner_screen_name=".$user_name."&slug=".$list."&cursor=".$next_cursor;
 
-print date('r')." Searching ".$url."\n";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'chs');
+	$rawData = curl_exec($ch);
+	curl_close($ch);
 
-$data = json_decode($rawData);
-//print $rawData;
+	print date('r')." Searching ".$url."\n";
 
-if (property_exists($data, 'error') && $data->error) {
-	print date('r')." Error: ".$data->error."\n";
-} else {
-	foreach($data->users as $userData) {
-		//var_dump($tweetData);
-		if (!$userData->protected) {
-			TwitterUser::findOrCreate($userData->id_str, $userData->screen_name, $userData->profile_image_url_https);
+	$data = json_decode($rawData);
+	//print $rawData;
+
+	if (property_exists($data, 'error') && $data->error) {
+		print date('r')." Error: ".$data->error."\n";
+	} else {
+		foreach($data->users as $userData) {
+			//var_dump($tweetData);
+			if (!$userData->protected) {
+				print ".";
+				$user = TwitterUser::findOrCreate($userData->id_str, $userData->screen_name, $userData->profile_image_url_https);
+				$user->setAttending(true);
+			}
 		}
 	}
+
+	$next_cursor = $data->next_cursor;
+	print "Next Cursor: ".$data->next_cursor."\n";
+	sleep(1);
 }
+print "\n\n";
 
