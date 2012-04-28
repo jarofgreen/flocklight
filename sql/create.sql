@@ -38,4 +38,11 @@ CREATE TABLE follows (
 ALTER TABLE follows ADD CONSTRAINT follows_account_id  FOREIGN KEY (account_id) REFERENCES twitter_account(id);
 ALTER TABLE follows ADD CONSTRAINT follows_follows_ccount_id  FOREIGN KEY (follows_account_id) REFERENCES twitter_account(id);
 
-
+CREATE TABLE word_use (
+  account_id BIGINT UNSIGNED NOT NULL,
+  word VARCHAR(140) NOT NULL,
+  num_used SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (account_id,word)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE word_use ADD CONSTRAINT word_use_account_id  FOREIGN KEY (account_id) REFERENCES twitter_account(id);
+CREATE INDEX word_use_word_idx ON word_use(word);

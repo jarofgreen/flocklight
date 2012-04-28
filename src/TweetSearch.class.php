@@ -15,10 +15,16 @@ class TweetSearch extends  BaseSearch {
 	protected $conversationUser1;
 	/** @var TwitterUser **/
 	protected $conversationUser2;
-
+	/** @var TwitterUser **/
+	protected $byUser;
+	
 	public function conversation(TwitterUser $user1, TwitterUser $user2) {
 		$this->conversationUser1 = $user1;
 		$this->conversationUser2 = $user2;
+	}
+	
+	public function by(TwitterUser $user) {
+		$this->byUser = $user;
 	}
 
 	protected function execute() {
@@ -35,6 +41,10 @@ class TweetSearch extends  BaseSearch {
 					 " tc2.to_account_id = ".  intval($this->conversationUser1->getId()) . " AND ".
 					" tc2.from_account_id = ".  intval($this->conversationUser2->getId());
 			$where[] = "  (tc1.to_account_id IS NOT NULL OR  tc2.to_account_id IS NOT NULL)  "  ;
+		}
+	
+		if ($this->byUser) {
+			$where[] = " tweet.account_id =  ".intval($this->byUser->getId());
 		}
 		
 		$sql = "SELECT tweet.* ".
