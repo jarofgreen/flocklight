@@ -3,7 +3,7 @@
 
 {block name="content"}
 
-	<ul>
+	<ul class="people">
 		{while $user=$searchUsers->nextResult()}
 			<li>
 				<img src="{$user->getProfileImageURL()}" class="twitterAvatar">

@@ -5,7 +5,7 @@
 
 	<h2>who tweeted them</h2>
 
-	<ul>
+	<ul class="people">
 		{while $userInList=$searchUsers->nextResult()}
 			<li>
 				<img src="{$userInList->getProfileImageURL()}" class="twitterAvatar">

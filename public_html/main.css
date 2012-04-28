@@ -33,6 +33,26 @@ html, body {
 	border: 1px solid black;
 	padding: 5px 20px;
 }
+#body ul.people {
+	list-style-type: none;
+}
+#body ul.people li {
+	float: left;
+	width: 180px;
+	padding: 5px;
+	background: #ccc;
+	margin: 2px;
+	text-align: right;
+}
+#body ul.people li img.twitterAvatar { display: block; }
+#body ul.people li a.relationship { display: block; }
+#body ul.people:after  {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
 img.twitterAvatar {
 	max-height: 100px;
 	max-width: 100px;
