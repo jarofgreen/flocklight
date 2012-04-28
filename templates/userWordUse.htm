@@ -1,0 +1,18 @@
+
+
+
+{extends file="userPage.htm"} 
+
+{block name="content"}
+
+	<h2>word use</h2>
+
+	<ul>
+		{while $wordUse=$searchWordUse->nextResult()}
+			<li>
+				<a href="/word.php?id={$wordUse->getWord()|escape:'url'}">{$wordUse->getWord()|escape} ({$wordUse->getNumUsed()})</a>
+			</li>
+		{/while}
+	</ul>
+	
+{/block}
