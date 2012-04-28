@@ -19,6 +19,16 @@ CREATE TABLE tweet (
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE tweet ADD CONSTRAINT tweet_account_id  FOREIGN KEY (account_id) REFERENCES twitter_account(id);
 
+CREATE TABLE tweet_conversation (
+  from_account_id  BIGINT UNSIGNED NOT NULL,
+  to_account_id  BIGINT UNSIGNED NOT NULL,
+  tweet_id BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (from_account_id, to_account_id, tweet_id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE tweet_conversation ADD CONSTRAINT tweet_conversation_from_account_id  FOREIGN KEY (from_account_id) REFERENCES twitter_account(id);
+ALTER TABLE tweet_conversation ADD CONSTRAINT tweet_conversation_to_ccount_id  FOREIGN KEY (to_account_id) REFERENCES twitter_account(id);
+ALTER TABLE tweet_conversation ADD CONSTRAINT tweet_conversation_tweet_id  FOREIGN KEY (tweet_id) REFERENCES tweet(id);
+
 CREATE TABLE follows (
   account_id BIGINT UNSIGNED NOT NULL,
   follows_account_id BIGINT UNSIGNED NOT NULL,
