@@ -1,0 +1,19 @@
+
+
+
+{extends file="page.htm"} 
+
+{block name="content"}
+
+	<h2>word use</h2>
+
+	<ul>
+		{while $userInList=$searchUsers->nextResult()}
+			<li>
+				<img src="{$userInList->getProfileImageURL()}" class="twitterAvatar">
+				<a href="/user.php?id={$userInList->getUserName()|escape:'url'}">{$userInList->getUserName()|escape}</a>
+			</li>
+		{/while}
+	</ul>
+	
+{/block}
