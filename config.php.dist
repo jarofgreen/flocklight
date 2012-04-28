@@ -4,6 +4,12 @@ define('DB_DSN','mysql:host=localhost;dbname=eventtwitterinfo');
 define('DB_USERNAME','eventtwitterinfo');
 define('DB_PASSWORD','password');
 
+/** This twitter app should be read-only **/
+define('TWITTER_APP_KEY',null);
+define('TWITTER_APP_SECRET',null);
+
+define('HTTP_HOST','localhost');
+
 
 $searchTerms = array('#chscot');
 

@@ -86,6 +86,17 @@ class TwitterUser {
 			));	
 	}
 
+	public function addTokens($token,$secret) {
+		$db = getDB();
+		$s = $db->prepare("UPDATE twitter_account  SET oauth_token=:t,oauth_secret=:s WHERE id=:id");
+		$data = array(
+				'id'=>$this->id,
+				't'=>$token,
+				's'=>$secret,
+			);
+		$s->execute($data);
+	}
+	
 }
 
 

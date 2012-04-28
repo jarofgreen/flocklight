@@ -7,7 +7,9 @@
 
 function my_autoload($class_name){
 	$inc = dirname(__FILE__);	
-	if(file_exists($inc."/".$class_name.'.class.php')){
+	if ($class_name == 'TwitterOAuth') {
+		require $inc.'/../libs/twitteroauth/twitteroauth.php';
+	} else if (file_exists($inc."/".$class_name.'.class.php')) {
 		require_once($inc."/".$class_name.'.class.php');
 	}
 }
@@ -33,9 +35,13 @@ function getDB() {
 
 /** @return Smarty **/
 function getSmarty() {
+	if (!session_id()) session_start();
 	require_once dirname(__FILE__).'/../libs/smarty/Smarty.class.php';
 	$s = new Smarty();
 	$s->template_dir = dirname(__FILE__) . '/../templates/';
 	$s->compile_dir = dirname(__FILE__) . '/../smarty_c/';
+	$s->assign('userID',isset($_SESSION['userID']) ? $_SESSION['userID'] : null);
+	$s->assign('userScreenName',isset($_SESSION['userScreenName']) ? $_SESSION['userScreenName'] : null);
+	$s->assign('userProfileImageURL',isset($_SESSION['userProfileImageURL']) ? $_SESSION['userProfileImageURL'] : null);	
 	return $s;
 }
