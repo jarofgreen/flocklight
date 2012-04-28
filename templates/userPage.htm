@@ -5,6 +5,8 @@
 
 	<h1><img src="{$user->getProfileImageURL()}" class="twitterAvatar">{$user->getUserName()|escape}</h1>
 
+	<p>{if $user->getAttending()}Attending{else}Not Attending{/if}</p>
+	
 	<ul class="tabs">
 		<li><a href="/user.php?id={$user->getUserName()|escape:'url'}">Details</a></li>
 		<li><a href="/userFriends.php?id={$user->getUserName()|escape:'url'}">Friends</a></li>
