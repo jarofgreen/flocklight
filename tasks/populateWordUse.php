@@ -11,6 +11,14 @@ $statSelect = $db->prepare("SELECT * FROM word_use WHERE account_id=:id AND word
 $statUpdate = $db->prepare("UPDATE word_use SET num_used=:n WHERE account_id=:id AND word=:w");
 $statInsert = $db->prepare("INSERT INTO word_use (num_used,account_id,word) VALUES (:n,:id,:w)");
 
+
+$excludeWords = array();
+$exclude = file_get_contents(dirname(__FILE__).'/../src/excludeFromWordCount.txt');
+foreach(explode("\n",$exclude) as $line) {
+	if (trim($line)) $excludeWords[] = strtolower (trim ($line));
+}
+
+
 $total = 0;
 
 $userSearch = new TwitterUserSearch();
@@ -26,10 +34,12 @@ while(($user = $userSearch->nextResult()) && $continue) {
 	while($tweet = $tweetSearch->nextResult()) {
 		$bits = array_count_values(str_word_count(strtolower($tweet->getTweet()), 1));
 		foreach($bits as $word=>$count) {
-			if (isset($data[$word])) {
-				$data[$word] += $count;
-			} else {
-				$data[$word] = $count;
+			if (!in_array($word, $excludeWords)) {
+				if (isset($data[$word])) {
+					$data[$word] += $count;
+				} else {
+					$data[$word] = $count;
+				}
 			}
 		}
 	}
@@ -39,7 +49,7 @@ while(($user = $userSearch->nextResult()) && $continue) {
 	
 	
 	
-	foreach($data as $word=>$number) {
+	foreach($data as $word=>$number) { 
 		$statSelect->execute(array('id'=>$user->getId(),'w'=>$word));
 		if ($statSelect->rowCount() == 0) {
 			$statInsert->execute(array('id'=>$user->getId(),'w'=>$word,'n'=>$number));
